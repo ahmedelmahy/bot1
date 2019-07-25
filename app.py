@@ -15,14 +15,6 @@ bot = Bot(ACCESS_TOKEN)
 
 
 
-
-
-
-
-
-
-
-
 #We will receive messages that Facebook sends our bot at this endpoint 
 @app.route("/", methods=['GET', 'POST'])
 def receive_message():
@@ -42,9 +34,8 @@ def receive_message():
                 #Facebook Messenger ID for user so we know where to send response back to
                 recipient_id = message['sender']['id']
                 if message['message'].get('text') == '9':
-                    response_sent_text = get_message()
-                    send_message(recipient_id, response_sent_text[0])
-                    send_message(recipient_id, response_sent_text[1])
+                    response = get_message()
+                    send_message(recipient_id, response)
                 #if user sends us a GIF, photo,video, or any other non-text item
                 #if message['message'].get('attachments'):
                 #    response_sent_nontext = get_message()
@@ -73,7 +64,9 @@ def get_message():
 #uses PyMessenger to send response to user
 def send_message(recipient_id, response):
     #sends user the text message provided via input response parameter
-    bot.send_text_message(recipient_id, response)
+    bot.send_text_message(recipient_id, response[1])
+    bot.send_image_url(recipient_id, response[0])
+    
     return "success"
 
 if __name__ == "__main__":
