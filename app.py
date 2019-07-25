@@ -62,7 +62,7 @@ def verify_fb_token(token_sent):
 
 #chooses a random message to send to the user
 def get_message():
-
+    
     sample_responses = ['https://druggo-app.github.io/rosheta/imgs/{}.jpg'.format(i) for i in range(1,251)]
     # return selected item to the user
     i = random.choice(range(1,255))
